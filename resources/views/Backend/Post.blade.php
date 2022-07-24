@@ -9,7 +9,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    <a href="{{ route('post.create') }}" type="button" class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i>
+                    <a href="{{ route('admin-post.create') }}" type="button" class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i>
                         Create Post</a>
                 </div>
                 <div class="col-6" align="right">
@@ -17,6 +17,18 @@
                         <i class="fas fa-tags"></i> Tags</a>
                 </div>
             </div>
+            @if (session('status'))
+                <div class="alert alert-success alert-has-icon alert-dismissible show fade">
+                    <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        <div class="alert-title">Success</div>
+                        {{ session('status') }}
+                    </div>
+                </div>
+            @endif
             <div class="container-fluid mt-3">
                 <table id="postTabel" class="ui celled table responsive nowrap unstackable table-sm" style="width: 100%">
                     <thead>
@@ -80,7 +92,7 @@
                 [10, 25, 50, "All"]
             ],
             ajax: {
-                url: "{{ route('post.index') }}",
+                url: "{{ route('admin-post.index') }}",
                 type: 'GET',
                 data: function(data) {}
             },
@@ -121,6 +133,39 @@
             $('#Tag').appendTo("body").modal(
                 'show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Add Tag'); // Set title to Bootstrap modal title
+        }
+
+        function edit_data(id) {
+            $.ajax({
+                url: "admin-post/" + id + "/edit",
+                type: "GET",
+                dataType: "JSON",
+                success: function(data) {
+                    console.log(data);
+                    $('#id').val(data.id);
+                    $('#title').val(data.title);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                    console.log(data);
+                }
+            });
+        }
+
+        function change_publish_status(id) {
+            $.ajax({
+                url: "{{ route('update_publish') }}",
+                type: "POST",
+                data: $('#formpublish' + id).serialize(),
+                dataType: "JSON",
+                success: function(data) {
+                    console.log(data);
+                    table.ajax.reload(null, false);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
         }
     </script>
 @endsection

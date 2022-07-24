@@ -30,12 +30,17 @@ class PostController extends Controller
                     if ($post->published_at == 1) {
                         # code...
                         $publish = '<center>
-                                       <button class="btn btn-sm btn-link"><i class="fas fa-eye"></i></button>
-                                    </center>';
+                                <form id="formpublish' . $post->id . '">
+                                <input type="hidden" name="id" value="' . $post->id . '">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                       <button class="btn btn-sm btn-link" onclick="change_publish_status(' . $post->id . ')"><i class="fas fa-eye"></i></button>
+                                </div>
+                                </form>
+                                </center>';
                     } else {
                         # code...
                         $publish = '<center>
-                                       <button class="btn btn-sm btn-link"><i class="fas fa-eye-slash"></i></button>
+                                       <button class="btn btn-sm btn-link-secondary" onclick="change_publish_status(' . $post->id . ')"><i class="fas fa-eye-slash"></i></button>
                                     </center>';
                     }
                     return $publish;
@@ -48,7 +53,7 @@ class PostController extends Controller
                 })
                 ->addColumn('aksi', function ($post) {
                     $button = '<center>
-                    <button type="button" class="btn btn-sm btn-warning" onclick="edit_data(' . $post->id . ')"><i class="fas fa-edit"></i></button>
+                    <a href="admin-post/' . $post->id . '/edit" type="button" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                     <button type="button" class="btn btn-sm btn-danger" onclick="delete_data(' . $post->id . ')"><i class="fas fa-trash"></i></button>
                 </center>';
                     return $button;
@@ -74,9 +79,30 @@ class PostController extends Controller
         $tag = tag::all();
         $category = categories::all();
         return view('Backend.Create-post', [
-            'tag'   => $tag,
+            'tag'       => $tag,
             'category'  => $category
         ]);
+    }
+
+    public function update_status_publish(Request $request)
+    {
+        $cek = Post::select('id', 'published_at')
+            ->where('id', $request->id)->get();
+        if ($cek->published_at == 0) {
+            # code...
+            Post::where('id', $request->id)
+                ->update([
+                    'published_at'   => 1,
+                ]);
+        } else {
+            # code...
+            Post::where('id', $request->id)
+                ->update([
+                    'published_at'   => 0,
+                ]);
+        }
+
+        return response()->json(true);
     }
 
     /**
@@ -115,7 +141,7 @@ class PostController extends Controller
             $validateData['image'] = $request->file('image')->storeAs('Image/Post', $pathname);
         }
 
-        return response()->json(true);
+        return redirect()->back()->with('status', 'Post telah dibuat.');
     }
 
     /**
@@ -137,7 +163,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Post::find($id);
+        return view('Backend.Create-post')->with('post', $data);
     }
 
     /**
@@ -160,7 +187,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
     }
 
     public function slug(Request $request)

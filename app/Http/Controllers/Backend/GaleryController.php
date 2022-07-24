@@ -21,16 +21,20 @@ class GaleryController extends Controller
     public function index()
     {
         //
-        $category = Category_galery::select('category')->get();
+        $category = Category_galery::select('id', 'category')->get();
 
         $filter_category =  DB::table('db_galery')
-            ->select('category', DB::raw('count(*) as total'))
-            ->groupBy('category')
-            ->orderByRaw('count(category) DESC')
+            ->join('db_category_galery', 'db_category_galery.id', '=', 'db_galery.category_id')
+            ->select('db_category_galery.category', DB::raw('count(*) as total'))
+            ->groupBy('category_id')
+            ->orderByRaw('count(category_id) DESC')
             ->get();
         // return $filter_category;
+        // return response()->json($category);
 
-        $galery = Galery::select('id', 'image', 'category')->get();
+        $galery = Galery::select('id', 'image', 'category_id')
+            ->orderBy('created_at', 'DESC')
+            ->get();
         return view('Backend.Galery', [
             'category'          => $category,
             'image_galery'      => $galery,
@@ -57,7 +61,7 @@ class GaleryController extends Controller
     public function store(Request $request)
     {
         //
-
+        // return $request->all();
         $validatedData = $request->validate([
             'image'     =>  'image|file',
             'category'  =>  'required',
@@ -67,12 +71,12 @@ class GaleryController extends Controller
 
         if ($request->file('image')) {
             # code...  
-            $validateData['image'] = $request->file('image')->storeAs('Image/Galery', $pathname);
+            $validatedData['image'] = $request->file('image')->storeAs('Image/Galery', $pathname);
         }
 
         Galery::create([
             'image'       => $pathname,
-            'category'  => $request->category
+            'category_id'  => $request->category
         ]);
 
         return redirect()->back();

@@ -12,11 +12,11 @@ class Galery extends Model
 
     protected $fillable = [
         'image',
-        'category',
+        'category_id',
     ];
 
     public function category()
     {
-        return $this->belongsToMany(Category_galery::class, 'kode_transaksi', 'kode_transaksi');
+        return $this->hasMany(Category_galery::class, 'id', 'category_id');
     }
 }

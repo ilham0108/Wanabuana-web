@@ -13,7 +13,7 @@ class CategoryController extends Controller
     {
         // return $request->all();
         $validated = $request->validate([
-            'category' => 'required|alpha|min:5|max:15',
+            'category' => 'required|alpha|min:3|max:15',
         ]);
 
         Category_galery::create([

@@ -21,15 +21,15 @@
                                 </label>
                             </div>
                         </li>
-                        <li class="list-inline-item"><a href="#" onclick="multiple_delete()" class="text-danger"
-                                style="text-decoration: none"><i class="far fa-trash-alt"></i>
+                        <li class="list-inline-item"><a href="#" onclick="multiple_delete()" class="text-danger" style="text-decoration: none"><i
+                                    class="far fa-trash-alt"></i>
                                 Trash</a></li>
                     </ul>
                 </div>
             </div>
             <form id="form-addGalery" name="form-addGalery" class="form-horizontal">
                 @csrf
-                <div class="row" style="overflow-y: scroll; height:400px">
+                <div class="row" style="overflow-y: scroll; height:700px">
                     @foreach ($image_galery as $item)
                         <div class="col-sm-12 col-md-4 col-lg-4">
                             <div class="card">
@@ -38,22 +38,19 @@
                                         <div class="row">
                                             <div class="col-6 px-0">
                                                 <div class="form-check">
-                                                    <input class="form-check-input delete-checkbox" type="checkbox"
-                                                        name="checkbox" id="checkbox" value="{{ $item->id }}"
+                                                    <input class="form-check-input delete-checkbox" type="checkbox" name="checkbox" id="checkbox" value="{{ $item->id }}"
                                                         data-id="{{ $item->id }}">
                                                     <label class="form-check-label"></label>
                                                 </div>
                                             </div>
                                             <div class="col-6 px-0 text-right">
-                                                <a href="#" class="text-danger"
-                                                    onclick="delete_image({{ $item->id }})"
-                                                    style="text-decoration: none"><i class="far fa-trash-alt"></i>
+                                                <a href="#" class="text-danger" onclick="delete_image({{ $item->id }})" style="text-decoration: none"><i
+                                                        class="far fa-trash-alt"></i>
                                                     Trash</a>
                                             </div>
                                         </div>
-                                        <div class="gallery-item"
-                                            data-image="{{ asset('storage/Image/Galery/' . $item->image) }}"
-                                            data-title="{{ $item->image }}" style="width: 100%">
+                                        <div class="gallery-item" data-image="{{ asset('storage/Image/Galery/' . $item->image) }}" data-title="{{ $item->image }}"
+                                            style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
@@ -67,23 +64,22 @@
             <h6>Upload Images</h6>
             <div class="card" style="margin-bottom: 13px">
                 <div class="card-body">
-                    <form id="form-addGalery" name="form-addGalery" action="{{ route('galery.store') }}" method="POST"
-                        class="form-horizontal" enctype="multipart/form-data">
+                    <form id="form-addGalery" name="form-addGalery" action="{{ route('admin-galery.store') }}" method="POST" class="form-horizontal"
+                        enctype="multipart/form-data">
                         @csrf
                         <img class="preview img-fluid col-sm-12" id="preview">
                         <div class="custom-file mt-3">
-                            <input type="file" class="custom-file-input @error('img') is-invalid @enderror" id="image"
-                                name="image" aria-describedby="inputGroupFileAddon01" onchange="previewImage()" required>
+                            <input type="file" class="custom-file-input @error('img') is-invalid @enderror" id="image" name="image"
+                                aria-describedby="inputGroupFileAddon01" onchange="previewImage()" required>
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                         <select class="form-control form-control-sm mt-3 selectpicker" id="category" name="category">
                             <option selected disabled>Category</option>
                             @foreach ($category as $item)
-                                <option value="{{ $item->category }}">{{ $item->category }}</option>
+                                <option value="{{ $item->id }}">{{ $item->category }}</option>
                             @endforeach
                         </select>
-                        <button type="submit" class="btn btn-sm btn-primary mt-3" style="width: 100%"><i
-                                class="fas fa-paper-plane"></i>
+                        <button type="submit" class="btn btn-sm btn-primary mt-3" style="width: 100%"><i class="fas fa-paper-plane"></i>
                             Upload</button>
                     </form>
                 </div>
@@ -97,8 +93,7 @@
                     <div class="row mt-3">
                         @foreach ($category_filter as $categorys)
                             <div class="col-6 mb-2">
-                                <a href="/galery?category={{ $categorys->category }}" class="text-secondary"
-                                    style="text-align: justify">{{ $categorys->category }}
+                                <a href="/galery?category={{ $categorys->category }}" class="text-secondary" style="text-align: justify">{{ $categorys->category }}
                                 </a>
                             </div>
                             <div class="col-6 mb-2 text-right">
@@ -123,8 +118,7 @@
                     <form action="/addCategory" id="form-category" method="post">
                         @csrf
                         <div class="modal-body">
-                            <input type="text" class="form-control form-control-sm @error('category') is-invalid @enderror"
-                                name="category" id="category">
+                            <input type="text" class="form-control form-control-sm @error('category') is-invalid @enderror" name="category" id="category">
                             @error('category')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

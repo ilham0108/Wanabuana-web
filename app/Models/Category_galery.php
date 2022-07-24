@@ -13,4 +13,9 @@ class Category_galery extends Model
     protected $fillable = [
         'category',
     ];
+
+    public function category()
+    {
+        return $this->hasMany(Galery::class, 'id', 'category_id');
+    }
 }

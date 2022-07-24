@@ -772,13 +772,12 @@ section {
 # Team
 --------------------------------------------------------------*/
 .team {
-  background: #fff;
+  background: #fef8f5;
   padding: 60px 0;
 }
 .team .member {
   text-align: center;
   margin-bottom: 20px;
-  background: #343a40;
   position: relative;
   overflow: hidden;
 }

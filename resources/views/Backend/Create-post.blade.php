@@ -17,11 +17,11 @@
 @section('Content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('post.store') }}" method="POST" id="create-post" name="create-post" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin-post.store') }}" method="POST" id="create-post" name="create-post" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label>Title</label>
-                    <input type="text" class="form-control form-control-sm" id="title" name="title">
+                    <input type="text" class="form-control form-control-sm" id="title" name="title" value="">
                 </div>
                 <div class="form-group">
                     <label>Slug</label>
@@ -43,7 +43,8 @@
                     </div>
                     <div class="custom-file mt-3">
                         <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                        <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01" onchange="previewImage()" required>
+                        <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01" onchange="previewImage()"
+                            required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -98,6 +99,7 @@
             .create(document.querySelector('#body'))
             .catch(error => {
                 console.error(error);
+                extraPlugins: 'uploadimage'
             });
 
         const title = document.querySelector('#title');
@@ -144,7 +146,7 @@
 
         function save_data() {
             $.ajax({
-                url: "{{ route('post.store') }}",
+                url: "{{ route('admin-post.store') }}",
                 type: "POST",
                 data: $('#create-post').serialize(),
                 dataType: "JSON",
