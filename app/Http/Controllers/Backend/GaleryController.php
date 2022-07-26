@@ -125,12 +125,12 @@ class GaleryController extends Controller
     public function destroy($id)
     {
         //
-        $path = Galery::find($id);
+        $path = Galery::where('id', $id)->first();
         if (Storage::disk('public')->exists('Image/Galery/' . $path->image)) {
             // ...
             Storage::delete('Image/Galery/' . $path->image);
         }
-        Galery::where('id', $path->id)->delete();
+        Galery::find($id)->delete();
     }
 
     public function multiple_delete(Request $request)

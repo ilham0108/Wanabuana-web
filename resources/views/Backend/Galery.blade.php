@@ -29,9 +29,9 @@
             </div>
             <form id="form-addGalery" name="form-addGalery" class="form-horizontal">
                 @csrf
-                <div class="row" style="overflow-y: scroll; height:700px">
+                <div class="row" style="overflow-y: scroll; max-height:700px">
                     @foreach ($image_galery as $item)
-                        <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-sm-12 col-md-4 col-lg-4" style="height: fit-content">
                             <div class="card">
                                 <div class="card-body pt-2">
                                     <div class="gallery gallery-md">
@@ -44,9 +44,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-6 px-0 text-right">
-                                                <a href="#" class="text-danger" onclick="delete_image({{ $item->id }})" style="text-decoration: none"><i
-                                                        class="far fa-trash-alt"></i>
-                                                    Trash</a>
+                                                <button type="button" class="btn btn-sm btn-link-danger" onclick="delete_image({{ $item->id }})"
+                                                    style="text-decoration: none"><i class="far fa-trash-alt"></i>
+                                                    Trash</button>
                                             </div>
                                         </div>
                                         <div class="gallery-item" data-image="{{ asset('storage/Image/Galery/' . $item->image) }}" data-title="{{ $item->image }}"
@@ -207,7 +207,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: "/galery/" + id,
+                        url: "/admin-galery/" + id,
                         type: "DELETE",
                         data: {
                             '_token': '{{ csrf_token() }}',
@@ -239,10 +239,7 @@
                     data: {
                         'id': selected
                     },
-                    success: function(data) {
-                        console.log(selected);
-                        console.log(data);
-                    },
+                    success: function(data) {},
                     error: function(data) {
                         alert(data.responseText);
                     }

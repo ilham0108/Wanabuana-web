@@ -9,15 +9,14 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="card card-primary">
                 <div class="card-body">
-                    <form id="form-addPictures" action="{{ route('manage-about.store') }}" method="POST"
-                        name="form-addPictures" class="form-horizontal" enctype="multipart/form-data">
+                    <form id="form-addPictures" action="{{ route('manage-about.store') }}" method="POST" name="form-addPictures" class="form-horizontal"
+                        enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" id="id" value="{{ $about[0]->id }}">
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" id="title" name="title"
-                                    class="form-control form-control-sm @error('title') is-invalid @enderror"
+                                <input type="text" id="title" name="title" class="form-control form-control-sm @error('title') is-invalid @enderror"
                                     value="{{ $about[0]->title }}">
                                 @error('title')
                                     <span class="text-danger">{{ $message }}</span>
@@ -27,8 +26,7 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Body</label>
                             <div class="col-sm-12 col-md-7">
-                                <textarea class="ckeditor @error('title') is-invalid @enderror" id="body" name="body"
-                                    cols="auto">{{ $about[0]->body }}</textarea>
+                                <textarea class="ckeditor @error('title') is-invalid @enderror" id="body" name="body" cols="auto">{{ $about[0]->body }}</textarea>
                                 @error('title')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

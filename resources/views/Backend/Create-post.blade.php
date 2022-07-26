@@ -7,8 +7,8 @@
         </div>
         <div class="col-6" align="right">
             <div class="col-6" align="right">
-                <a href="#" type="button" onclick="add_tag()" class="btn btn-sm btn-dark">
-                    <i class="fas fa-tags"></i> Tags</a>
+                <button type="button" onclick="add_tag()" class="btn btn-sm btn-dark">
+                    <i class="fas fa-tags"></i> Tags</button>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <label>Body</label>
-                    <textarea class="ckeditor" id="body" name="body" cols="auto"></textarea>
+                    <textarea name="body" id="body"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-primary"><i class="far fa-paper-plane"></i> Create
@@ -75,17 +75,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/addCategory" id="form-Tag" method="post">
+                <form id="form-Tag" name="form-Tag">
                     @csrf
                     <div class="modal-body">
-                        <input type="text" class="form-control form-control-sm @error('category') is-invalid @enderror" name="category" id="category">
-                        @error('category')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <input type="text" class="form-control form-control-sm" name="tag" id="tag">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="addTag()" class="btn btn-primary">add</button>
                     </div>
                 </form>
             </div>
@@ -95,12 +92,11 @@
 
 @section('Js')
     <script>
-        ClassicEditor
-            .create(document.querySelector('#body'))
-            .catch(error => {
-                console.error(error);
-                extraPlugins: 'uploadimage'
-            });
+        CKEDITOR.replace('body', {
+            filebrowserUploadUrl: '/ckeditor/upload_image.php',
+            filebrowserUploadMethod: 'form'
+        });
+
 
         const title = document.querySelector('#title');
         const slug = document.querySelector('#slug');
@@ -118,11 +114,11 @@
             $(this).next('.custom-file-label').html(fileName);
         })
 
-        $('input[name="tags[]"]').tagsinput({
-            trimValue: true,
-            confirmKeys: [13, 44, 32],
-            focusClass: 'my-focus-class'
-        });
+        // $('input[name="tags[]"]').tagsinput({
+        //     trimValue: true,
+        //     confirmKeys: [13, 44, 32],
+        //     focusClass: 'my-focus-class'
+        // });
 
         $(".js-example-tokenizer").select2({
             tags: true,
@@ -142,6 +138,25 @@
             if (file) {
                 preview.src = URL.createObjectURL(file)
             }
+        }
+
+        function addTag() {
+            $.ajax({
+                url: "{{ route('addTags') }}",
+                type: "POST",
+                data: $('#form-Tag').serialize(),
+                dataType: "JSON",
+                success: function(data) {
+                    if (data.status) {
+                        console.log(data);
+                        toastr.success('Tag Berhasil Dibuat')
+                    }
+                    location.reload();
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON.text, 'Gagal!')
+                }
+            });
         }
 
         function save_data() {

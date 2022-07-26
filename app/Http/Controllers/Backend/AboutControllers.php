@@ -18,7 +18,7 @@ class AboutControllers extends Controller
     public function index()
     {
         //
-        $about = About::select('id', 'title', 'body')->get();
+        $about = About::select('id', 'about', 'image')->get();
 
         return view('Backend.About', [
             'about'     => $about
@@ -45,17 +45,21 @@ class AboutControllers extends Controller
     {
         //
         // return $request->all();
-        $validated = $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-        ]);
+        $pathname = $request->file('image')->getClientOriginalName();
 
-        About::where('id', $request->id)
+
+        About::where('id', 1)
             ->update([
-                'title'     => $request->title,
-                'body'      => $request->body
+                'about'             => $request->about,
+                'image'             => $pathname,
             ]);
-        return response()->json('Success', 200);
+
+        if ($request->file('image')) {
+            # code...  
+            $validateData['image'] = $request->file('image')->storeAs('Image/General', $pathname);
+        }
+
+        return response()->json(true);
     }
 
     /**

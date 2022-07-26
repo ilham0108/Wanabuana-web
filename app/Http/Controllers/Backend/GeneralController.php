@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller
@@ -14,7 +15,10 @@ class GeneralController extends Controller
      */
     public function index()
     {
-        return view('Backend.General-Setting');
+        $about = About::first();
+        return view('Backend.General-Setting', [
+            'about'     => $about
+        ]);
     }
 
     /**

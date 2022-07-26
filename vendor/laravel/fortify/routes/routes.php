@@ -5,6 +5,7 @@ use Laravel\Fortify\Features;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Laravel\Fortify\Http\Controllers\ConfirmablePasswordController;
 use Laravel\Fortify\Http\Controllers\ConfirmedPasswordStatusController;
+use Laravel\Fortify\Http\Controllers\ConfirmedTwoFactorAuthenticationController;
 use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
 use Laravel\Fortify\Http\Controllers\EmailVerificationPromptController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
@@ -16,6 +17,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController;
 use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticationController;
 use Laravel\Fortify\Http\Controllers\TwoFactorQrCodeController;
+use Laravel\Fortify\Http\Controllers\TwoFactorSecretKeyController;
 use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
@@ -108,8 +110,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
     // Password Confirmation...
     if ($enableViews) {
         Route::get('/user/confirm-password', [ConfirmablePasswordController::class, 'show'])
-            ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
-            ->name('password.confirm');
+            ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')]);
     }
 
     Route::get('/user/confirmed-password-status', [ConfirmedPasswordStatusController::class, 'show'])
@@ -117,7 +118,8 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
         ->name('password.confirmation');
 
     Route::post('/user/confirm-password', [ConfirmablePasswordController::class, 'store'])
-        ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')]);
+        ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
+        ->name('password.confirm');
 
     // Two Factor Authentication...
     if (Features::enabled(Features::twoFactorAuthentication())) {
@@ -141,6 +143,10 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
             ->middleware($twoFactorMiddleware)
             ->name('two-factor.enable');
 
+        Route::post('/user/confirmed-two-factor-authentication', [ConfirmedTwoFactorAuthenticationController::class, 'store'])
+            ->middleware($twoFactorMiddleware)
+            ->name('two-factor.confirm');
+
         Route::delete('/user/two-factor-authentication', [TwoFactorAuthenticationController::class, 'destroy'])
             ->middleware($twoFactorMiddleware)
             ->name('two-factor.disable');
@@ -148,6 +154,10 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
         Route::get('/user/two-factor-qr-code', [TwoFactorQrCodeController::class, 'show'])
             ->middleware($twoFactorMiddleware)
             ->name('two-factor.qr-code');
+
+        Route::get('/user/two-factor-secret-key', [TwoFactorSecretKeyController::class, 'show'])
+            ->middleware($twoFactorMiddleware)
+            ->name('two-factor.secret-key');
 
         Route::get('/user/two-factor-recovery-codes', [RecoveryCodeController::class, 'index'])
             ->middleware($twoFactorMiddleware)

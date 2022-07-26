@@ -73,7 +73,6 @@
 
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex align-items-center">
-
         <div class="container">
             <div class="row gy-4">
                 <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
@@ -98,7 +97,7 @@
         <section id="about" class="about">
             <div class="container">
                 <div class="section-title">
-                    <a href="#">
+                    <a href="{{ route('about.index') }}">
                         <h2>About</h2>
                     </a>
                     <p>About us</p>
@@ -106,7 +105,7 @@
 
                 <div class="row justify-content-between">
                     <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
-                        <img src="{{ asset('img/about-img.png') }}" class="img-fluid" alt="" data-aos="zoom-in">
+                        <img src="{{ asset('storage/Image/General/' . $about->image) }}" class="img-fluid" alt="" data-aos="zoom-in">
                     </div>
                     <div class="col-lg-6 pt-5 pt-lg-0">
                         <h3 data-aos="fade-up">Mahasiswa Pecinta Alam Wanabuana</h3>
@@ -148,7 +147,7 @@
                 </div>
                 <div class="row">
                     @foreach ($post as $item)
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                        <div class=" col-md-6 col-lg-3 d-flex justify-content-center align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                             <div class="card icon-box p-0" style="width: 18rem;">
                                 @if ($item->image == null)
                                     <img src="{{ asset('storage/Image/Post/not_avaible.png') }}" width="100%" class="card-img-top" style="height: 15rem"
@@ -195,12 +194,11 @@
                                 <img src="{{ asset('storage/Image/Galery/' . $item->image) }}" class="img-fluid" alt="">
                                 <div class="portfolio-links">
                                     <a href="{{ asset('storage/Image/Galery/' . $item->image) }}" data-gallery="portfolioGallery" class="portfolio-lightbox"
-                                        title="App 1"><i class="bi bi-plus"></i></a>
+                                        title="{{ $item->category[0]->category }}"><i class="bi bi-plus"></i></a>
                                     <a href="portfolio-details.html" title="More Details"><i class="bi bi-link"></i></a>
                                 </div>
                                 <div class="portfolio-info">
-                                    <h4>App 1</h4>
-                                    <p>App</p>
+                                    <h4>{{ $item->category[0]->category }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -249,57 +247,7 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
-
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-6 footer-contact">
-                        <h3>Mapala Wanabuana</h3>
-                        <p>
-                            Fak. Ilmu Komputer Universitas Duta Bangsa <br>
-                            Jl. Bhayangkara No.55, Tipes, Kec. Serengan Kota Surakarta <br>
-                            Jawa Tengah 57154 <br>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
-                        </p>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Useful Links</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Our Social Networks</h4>
-                        <p>Temukan keseruan kita di sosisal media.</p>
-                        <div class="social-links mt-3">
-                            <a href="https://www.instagram.com/wanabuana/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="container py-4">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Ninestars</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-        </div>
+        @include('layouts.Frontend.footer-layout')
     </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

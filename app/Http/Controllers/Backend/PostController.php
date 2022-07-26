@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\categories;
 use App\Models\Post;
 use App\Models\tag;
+use Conner\Tagging\Model\Tag as ModelTag;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -22,28 +23,28 @@ class PostController extends Controller
     public function index(Request $request)
     {
         //
-        $post = Post::with(['category', 'tags'])->get();
         if ($request->ajax()) {
+            $post = Post::with(['category', 'tags'])->orderBy('created_at', 'DESC');
             # code...
             return datatables()->of($post)
                 ->addColumn('publish', function ($post) {
                     if ($post->published_at == 1) {
                         # code...
                         $publish = '<center>
-                                <form id="formpublish' . $post->id . '">
-                                <input type="hidden" name="id" value="' . $post->id . '">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                        <button class="btn btn-sm btn-link" onclick="change_publish_status(' . $post->id . ')"><i class="fas fa-eye"></i></button>
                                 </div>
-                                </form>
                                 </center>';
+                        return $publish;
                     } else {
                         # code...
                         $publish = '<center>
-                                       <button class="btn btn-sm btn-link-secondary" onclick="change_publish_status(' . $post->id . ')"><i class="fas fa-eye-slash"></i></button>
-                                    </center>';
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button class="btn btn-sm btn-link-secondary" onclick="change_publish_status(' . $post->id . ')"><i class="fas fa-eye-slash"></i></button>
+                                    </div>
+                                </center>';
+                        return $publish;
                     }
-                    return $publish;
                 })
                 ->addColumn('image', function ($post) {
                     $image = '<center>
@@ -63,9 +64,7 @@ class PostController extends Controller
         }
 
         // return $tag;
-        return view('Backend.Post', [
-            'post'      => $post
-        ]);
+        return view('Backend.Post', []);
     }
 
     /**
@@ -87,7 +86,7 @@ class PostController extends Controller
     public function update_status_publish(Request $request)
     {
         $cek = Post::select('id', 'published_at')
-            ->where('id', $request->id)->get();
+            ->where('id', $request->id)->first();
         if ($cek->published_at == 0) {
             # code...
             Post::where('id', $request->id)
@@ -144,6 +143,19 @@ class PostController extends Controller
         return redirect()->back()->with('status', 'Post telah dibuat.');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addTags(Request $request)
+    {
+        tag::create([
+            'tag'     => $request->tag,
+        ]);
+        return response()->json(true);
+    }
     /**
      * Display the specified resource.
      *

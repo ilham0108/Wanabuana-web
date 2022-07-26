@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\Anggota;
 use App\Models\Galery;
 use App\Models\Post;
@@ -19,8 +20,8 @@ class IndexController extends Controller
     public function index()
     {
         $galery = Galery::with('category')
-            ->limit(9)
             ->orderBy('created_at', 'DESC')
+            ->limit(6)
             ->get();
 
         $galery_category = DB::table('db_galery')
@@ -37,13 +38,15 @@ class IndexController extends Controller
             ->orderBy('created_at', 'DESC')
             ->limit(4)
             ->get();
+        $about = About::first();
 
         // return response()->json($galery_category);
         return view('index', [
             'galery_category'   => $galery_category,
             'galery'            => $galery,
             'post'              => $post,
-            'anggota'           => $anggota
+            'anggota'           => $anggota,
+            'about'             => $about
         ]);
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.Frontend.main-layouts')
 
 @section('Title')
-    <h2>Post</h2>
+    <h2>Galery</h2>
 @endsection
 
 @section('Content')
