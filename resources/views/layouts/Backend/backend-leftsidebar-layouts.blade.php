@@ -12,6 +12,9 @@
         <li class=""><a class="nav-link" href="{{ route('member.index') }}"><i class="fas fa-users"></i>
                 <span>Teams</span></a>
         </li>
+        <li class=""><a class="nav-link" href="{{ route('admin-recruitment.index') }}"><i class="fas fa-users"></i>
+                <span>Recruitment</span></a>
+        </li>
         <li class="menu-header">Configuration</li>
         <li class=""><a class="nav-link" href="{{ route('general-setting.index') }}"><i class="fas fa-cog"></i>
                 <span>General Setting</span></a>

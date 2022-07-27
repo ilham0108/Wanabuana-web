@@ -20,7 +20,7 @@ class CreateRecruitmentTable extends Migration
             $table->string('nama_panggilan', 20);
             $table->string('handphone', 13);
             $table->date('tanggal_lahir', 20);
-            $table->string('fakultas', 20);
+            $table->string('fakultas', 50);
             $table->string('program_studi', 50);
             $table->string('surat_sehat', 100);
             $table->string('surat_izin_orang_tua', 100);
