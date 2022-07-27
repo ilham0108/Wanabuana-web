@@ -5,7 +5,7 @@
 @endsection
 
 @section('Content')
-    <section id="post" class="services p-0">
+    <section id="about" class="services p-0">
         <div class="container" data-aos="fade-up">
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-lg-8">

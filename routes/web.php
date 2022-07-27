@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('admin-galery', \App\Http\Controllers\Backend\GaleryController::class);
     Route::resource('admin/dashboard', \App\Http\Controllers\Backend\DashboardController::class);
     Route::resource('admin-about', \App\Http\Controllers\Backend\AboutControllers::class);
+    Route::resource('admin-recruitment', \App\Http\Controllers\Backend\AboutControllers::class);
     Route::get('/publish_image/{id}', [\App\Http\Controllers\Backend\ImageController::class, 'publish_image'])->name('publish_image');
     Route::post('/addCategory', [\App\Http\Controllers\Backend\CategoryController::class, 'addCategory'])->name('addCategory');
     Route::post('/addTags', [\App\Http\Controllers\Backend\PostController::class, 'addTags'])->name('addTags');

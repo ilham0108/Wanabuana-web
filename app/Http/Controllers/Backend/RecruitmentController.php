@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\About;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
-class AboutControllers extends Controller
+class RecruitmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +15,6 @@ class AboutControllers extends Controller
     public function index()
     {
         //
-        $about = About::select('id', 'about', 'image')->get();
-
-        return view('Backend.About', [
-            'about'     => $about
-        ]);
     }
 
     /**
@@ -43,22 +36,6 @@ class AboutControllers extends Controller
     public function store(Request $request)
     {
         //
-        // return $request->all();
-        $pathname = $request->file('image')->getClientOriginalName();
-
-
-        About::where('id', 1)
-            ->update([
-                'about'             => $request->about,
-                'image'             => $pathname,
-            ]);
-
-        if ($request->file('image')) {
-            # code...  
-            $validateData['image'] = $request->file('image')->storeAs('Image/General', $pathname);
-        }
-
-        return redirect()->back()->with('success', 'Page about successfully updated.');
     }
 
     /**

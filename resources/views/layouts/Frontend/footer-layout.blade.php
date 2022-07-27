@@ -21,6 +21,7 @@
                     <li><i class="bx bx-chevron-right"></i> <a href="{{ route('post.index') }}">Post</a></li>
                     <li><i class="bx bx-chevron-right"></i> <a href="{{ route('galery.index') }}">Galery</a></li>
                     <li><i class="bx bx-chevron-right"></i> <a href="{{ route('recruitment.index') }}">Recruitment</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="#">Buku Tamu</a></li>
                 </ul>
             </div>
 

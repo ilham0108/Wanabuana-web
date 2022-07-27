@@ -28,6 +28,13 @@
                         </div>
                     </div>
                     <div id="home" class="tab-pane fade">
+                        @if (\Session::has('success'))
+                            <div class="alert alert-success">
+                                <ul>
+                                    <li>{!! \Session::get('success') !!}</li>
+                                </ul>
+                            </div>
+                        @endif
                         <form id="form-about" name="form-about" action="{{ route('admin-about.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
