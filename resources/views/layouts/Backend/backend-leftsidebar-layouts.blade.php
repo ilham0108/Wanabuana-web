@@ -12,7 +12,7 @@
         <li class=""><a class="nav-link" href="{{ route('member.index') }}"><i class="fas fa-users"></i>
                 <span>Teams</span></a>
         </li>
-        <li class=""><a class="nav-link" href="{{ route('admin-recruitment.index') }}"><i class="fas fa-users"></i>
+        <li class=""><a class="nav-link" href="{{ route('admin-recruitment.index') }}"><i class="fas fa-user-clock"></i>
                 <span>Recruitment</span></a>
         </li>
         <li class="menu-header">Configuration</li>

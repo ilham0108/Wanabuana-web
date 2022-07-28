@@ -42,4 +42,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('general-setting',  \App\Http\Controllers\Backend\GeneralController::class);
 
     // Frontend
+
 });

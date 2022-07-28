@@ -157,7 +157,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-6">
-                    <label for="exampleFormControlInput1" class="form-label">Upload Bukti Pembayaran</label><span class="text-danger">*</span>
+                    <label for="exampleFormControlInput1" class="form-label">Upload Bukti Pembayaran</label>
                     <div class="input-group mb-3">
                         <div class="custom-file" style="width: 100%">
                             <input type="file" class="custom-file-input form-control form-control-lg" id="bukti_pembayaran" name="bukti_pembayaran"

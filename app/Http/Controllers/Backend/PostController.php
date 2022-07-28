@@ -175,8 +175,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $data = Post::find($id);
-        return view('Backend.Create-post')->with('post', $data);
+        $data = Post::with(['category', 'tags'])->find($id);
+        return view('Backend.Edit-post')->with('post', $data);
     }
 
     /**

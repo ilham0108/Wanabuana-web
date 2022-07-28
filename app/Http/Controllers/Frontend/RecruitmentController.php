@@ -50,7 +50,6 @@ class RecruitmentController extends Controller
             'surat_sehat'           => ['required', 'mimes:pdf', 'max:2048'],
             'surat_izin_orang_tua'  => ['required', 'mimes:pdf', 'max:2048'],
             'foto'                  => ['required', 'mimes:jpeg,jpg', 'max:2048'],
-            'bukti_pembayaran'      => ['required', 'mimes:pdf', 'max:2048'],
             'g-recaptcha-response'  => 'required|captcha'
         ]);
 
@@ -75,21 +74,21 @@ class RecruitmentController extends Controller
 
             if ($request->file('surat_sehat')) {
                 # code...  
-                $validateData['surat_sehat'] = $request->file('surat_sehat')->storeAs('Image/Recruitment/Surat_sehat', $request->file('surat_sehat')->getClientOriginalName());
+                $validateData['surat_sehat'] = $request->file('surat_sehat')->storeAs('Recruitment/Surat_sehat', $request->file('surat_sehat')->getClientOriginalName());
             }
             if ($request->file('surat_izin_orang_tua')) {
                 # code...  
-                $validateData['surat_izin_orang_tua'] = $request->file('surat_izin_orang_tua')->storeAs('Image/Recruitment/Surat_izin_orang_tua', $request->file('surat_izin_orang_tua')->getClientOriginalName());
+                $validateData['surat_izin_orang_tua'] = $request->file('surat_izin_orang_tua')->storeAs('Recruitment/Surat_izin_orang_tua', $request->file('surat_izin_orang_tua')->getClientOriginalName());
             }
             if ($request->file('foto')) {
                 # code...  
-                $validateData['foto'] = $request->file('foto')->storeAs('Image/Recruitment/foto', $request->file('foto')->getClientOriginalName());
+                $validateData['foto'] = $request->file('foto')->storeAs('Recruitment/foto', $request->file('foto')->getClientOriginalName());
             }
             if ($request->file('butkti_pembayaran')) {
                 # code...  
-                $validateData['butkti_pembayaran'] = $request->file('butkti_pembayaran')->storeAs('Image/Recruitment/butkti_pembayaran', $request->file('butkti_pembayaran')->getClientOriginalName());
+                $validateData['butkti_pembayaran'] = $request->file('butkti_pembayaran')->storeAs('Recruitment/butkti_pembayaran', $request->file('butkti_pembayaran')->getClientOriginalName());
             }
-            return Redirect::back()->with('status', 'Terima kasih telah mendaftar menjadi anggota wanabuana, kami akan menghubungi anda secepatnya.');
+            return response()->view('Frontend.after_recruitment');
         }
     }
 

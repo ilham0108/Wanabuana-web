@@ -18,7 +18,6 @@
                             @endif
                             <div class="card-body" style="text-align: left">
                                 @foreach ($item->tags as $tag)
-                                    {{-- <span class="badge text-bg-primary">Primary</span> --}}
                                     <span class="badge text-bg-primary">{{ $tag->tag }}</span>
                                 @endforeach
                                 <h5 class="card-title mt-3"><strong><a href="/post/{{ $item->slug }}" class="text-dark">{{ $item->title }}</a></strong></h5>

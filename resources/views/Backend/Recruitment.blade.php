@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">
             <div class="container-fluid mt-3">
-                <table id="tabelPeserta" class="ui celled table responsive nowrap unstackable table-sm" style="width: 100%">
+                <table id="tabelPeserta" class="ui celled table nowrap unstackable table-sm" style="width: 700px; overflow:scroll">
                     <thead>
                         <tr>
                             <th style="width: 10px">No</th>
@@ -18,9 +18,9 @@
                             <th>Tanggal Lahir</th>
                             <th>Fakultas</th>
                             <th>Program Studi</th>
-                            <th>Surat Sehat</th>
-                            <th>Surat Izin</th>
-                            <th>Bukti Pembayaran</th>
+                            <th>Surat <br> Sehat</th>
+                            <th>Surat <br> Izin</th>
+                            <th>Bukti <br> Pembayaran</th>
                             <th>Foto</th>
                             <th style="width: 10px">Aksi</th>
                         </tr>
@@ -45,6 +45,7 @@
         table = $('#tabelPeserta').DataTable({
             processing: true,
             serverSide: true,
+            scrollX: true,
             lengthMenu: [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
