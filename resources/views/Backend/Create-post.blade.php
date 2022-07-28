@@ -7,7 +7,9 @@
         </div>
         <div class="col-6" align="right">
             <div class="col-6" align="right">
-                <button type="button" onclick="add_tag()" class="btn btn-sm btn-dark">
+                <button type="button" onclick="add_category()" class="btn btn-sm btn-info">
+                    <i class="fas fa-layer-group"></i> Kategori</button>
+                <button type="button" onclick="add_tag()" class="btn btn-sm btn-dark" style="margin-left: 3px">
                     <i class="fas fa-tags"></i> Tags</button>
             </div>
         </div>
@@ -88,6 +90,28 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="category-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form-category" name="form-category">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="text" class="form-control form-control-sm" name="category" id="category">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="save_category()" class="btn btn-primary">add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('Js')
@@ -132,6 +156,13 @@
             $('.modal-title').text('Add Tag'); // Set title to Bootstrap modal title
         }
 
+        function add_category() {
+            $('#form-Tag')[0].reset();
+            $('#category-modal').appendTo("body").modal(
+                'show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Add Category'); // Set title to Bootstrap modal title
+        }
+
         function previewImage() {
 
             const [file] = image.files
@@ -151,6 +182,25 @@
                         console.log(data);
                         toastr.success('Tag Berhasil Dibuat')
                     }
+                    location.reload();
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON.text, 'Gagal!')
+                }
+            });
+        }
+
+        function save_category() {
+            $.ajax({
+                url: "{{ route('addCategory_post') }}",
+                type: "POST",
+                data: $('#form-category').serialize(),
+                dataType: "JSON",
+                success: function(data) {
+                    if (data.status) {
+                        toastr.success('Kategori ditambahkan')
+                    }
+                    $('#category-modal').modal('hide');
                     location.reload();
                 },
                 error: function(xhr) {

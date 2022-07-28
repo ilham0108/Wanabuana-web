@@ -22,7 +22,7 @@ class DbPost extends Migration
             $table->string('image');
             $table->text('excerpt');
             $table->text('body');
-            $table->timestamp('published_at')->nullable();
+            $table->string('published_at')->default(1);
             $table->timestamps();
         });
     }

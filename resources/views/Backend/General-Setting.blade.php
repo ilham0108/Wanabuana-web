@@ -39,6 +39,7 @@
                             @csrf
                             <div class="row">
                                 <div class="col-sm-6 col-lg-6 ">
+                                    <input type="hidden" name="id" id="id" value="1">
                                     <div class="form-group">
                                         <label>Image</label>
                                         <div class="custom-file mt-3">
@@ -50,7 +51,10 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-6 text-center">
                                     <div class="img-fluid m-0">
-                                        <img src="{{ asset('storage/Image/General/' . $about->image) }}" class="preview img-fluid col-6" id="preview" height="300px">
+                                        @if ($about == null)
+                                        @else
+                                            <img src="{{ asset('storage/Image/General/' . $about->image) }}" class="preview img-fluid col-6" id="preview" height="300px">
+                                        @endif
                                     </div>
                                 </div>
                             </div>

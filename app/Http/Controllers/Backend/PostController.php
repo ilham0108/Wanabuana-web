@@ -156,12 +156,22 @@ class PostController extends Controller
         ]);
         return response()->json(true);
     }
+
+    public function addCategory(Request $request)
+    {
+        // return $request->all();
+        categories::create([
+            'name'     => $request->category,
+        ]);
+        return response()->json(true);
+    }
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         //

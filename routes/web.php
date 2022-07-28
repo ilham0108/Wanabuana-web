@@ -33,6 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('admin-recruitment', \App\Http\Controllers\Backend\RecruitmentController::class);
     Route::get('/publish_image/{id}', [\App\Http\Controllers\Backend\ImageController::class, 'publish_image'])->name('publish_image');
     Route::post('/addCategory', [\App\Http\Controllers\Backend\CategoryController::class, 'addCategory'])->name('addCategory');
+    Route::post('/addCategory_post', [\App\Http\Controllers\Backend\PostController::class, 'addCategory'])->name('addCategory_post');
     Route::post('/addTags', [\App\Http\Controllers\Backend\PostController::class, 'addTags'])->name('addTags');
     Route::post('/multipleDelete', [\App\Http\Controllers\Backend\GaleryController::class, 'multiple_delete'])->name('multiple-delete');
     Route::resource('admin-post', \App\Http\Controllers\Backend\PostController::class);

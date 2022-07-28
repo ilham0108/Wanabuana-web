@@ -38,9 +38,10 @@ class IndexController extends Controller
             ->orderBy('created_at', 'DESC')
             ->limit(4)
             ->get();
+
         $about = About::first();
 
-        // return response()->json($galery_category);
+        // return response()->json($about);
         return view('index', [
             'galery_category'   => $galery_category,
             'galery'            => $galery,

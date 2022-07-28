@@ -11,6 +11,5 @@ class categories extends Model
     protected $table = "categories";
     protected $fillable = [
         'name',
-        'slug',
     ];
 }

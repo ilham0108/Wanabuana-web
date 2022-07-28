@@ -48,10 +48,12 @@ class AboutControllers extends Controller
 
 
         About::where('id', 1)
-            ->update([
-                'about'             => $request->about,
-                'image'             => $pathname,
-            ]);
+            ->update(
+                [
+                    'about'   => $request->about,
+                    'image'   => $pathname,
+                ]
+            );
 
         if ($request->file('image')) {
             # code...  

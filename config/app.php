@@ -167,7 +167,6 @@ return [
          */
 
         Yajra\DataTables\DataTablesServiceProvider::class,
-        \Conner\Tagging\Providers\TaggingServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
         /*

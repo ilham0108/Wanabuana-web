@@ -17,7 +17,7 @@ class DbGalery extends Migration
         Schema::create('db_galery', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image');
-            $table->string('category', 25);
+            $table->string('category_id', 10);
             $table->timestamps();
         });
     }
